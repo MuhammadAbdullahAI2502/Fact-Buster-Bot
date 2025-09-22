@@ -42,6 +42,7 @@ with st.sidebar:
 GROQ_API_KEY = user_api_key or os.getenv("GROQ_API_KEY")
 if not GROQ_API_KEY:
     st.error("❌ Missing GROQ_API_KEY. Add it in .env or system environment variables.")
+    st.stop()
 
 # ----------------------------
 # Memory & State
