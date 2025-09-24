@@ -1,11 +1,8 @@
-import os
 import random
 import streamlit as st
 from langchain_groq import ChatGroq
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationChain
-
-
 
 # ----------------------------
 # Streamlit Page Setup
@@ -15,12 +12,9 @@ st.title("Fact Buster Bot")
 st.caption("Bust myths with science, history, and facts ✅❌")
 
 # ----------------------------
-# Sidebar Controls
+# Sidebar Controls (API key input removed)
 # ----------------------------
 with st.sidebar:
-    st.subheader("🔑 API Key")
-    user_api_key = st.text_input("Enter your GROQ API Key", type="password", placeholder="gsk_...")
-    
     st.subheader("⚙️ Controls")
     model_name = st.selectbox(
         "Groq Model",
@@ -39,10 +33,10 @@ with st.sidebar:
                 st.session_state.pop(key)
         st.rerun()
 
-GROQ_API_KEY = user_api_key or os.getenv("GROQ_API_KEY")
-if not GROQ_API_KEY:
-    st.error("❌ Missing GROQ_API_KEY. Add it in .env or system environment variables.")
-    st.stop()
+# ----------------------------
+# API Key (Directly set here)
+# ----------------------------
+GROQ_API_KEY = "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"
 
 # ----------------------------
 # Memory & State
@@ -81,7 +75,7 @@ llm = ChatGroq(
     model_name=model_name,
     temperature=temperature,
     max_tokens=max_tokens,
-    api_key=user_api_key or os.getenv("GROQ_API_KEY")
+    api_key=GROQ_API_KEY
 )
 
 conv = ConversationChain(
